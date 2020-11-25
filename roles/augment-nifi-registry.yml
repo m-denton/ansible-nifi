@@ -1,0 +1,35 @@
+---
+- name: Create shared resources directory
+  file:
+    path: "{{ nifi_registry_config_dirs.external_config }}"
+    state: "directory"
+    owner: "{{ nifi_registry_user }}"
+    group: "{{ nifi_registry_group }}"
+
+- name: Create cert directory
+  file:
+    path: "{{ nifi_registry_config_dirs.external_config }}/ssl"
+    state: "directory"
+    owner: "{{ nifi_registry_user }}"
+    group: "{{ nifi_registry_group }}"
+
+- name: Place keystore in cert directory
+  copy:
+    src: "env/{{ env_name }}/files/{{ ansible_fqdn }}.jks"
+    dest: "{{ nifi_registry_config_dirs.external_config }}/ssl/{{ ansible_fqdn }}.jks"
+    owner: "{{ nifi_registry_user }}"
+    group: "{{ nifi_registry_group }}"
+
+- name: Place truststore in cert directory
+  copy:
+    src: "env/common/files/truststore.jks"
+    dest: "{{ nifi_registry_config_dirs.external_config }}/ssl/truststore.jks"
+    owner: "{{ nifi_registry_user }}"
+    group: "{{ nifi_registry_group }}"
+  
+- name: Place LDAP truststore in cert directory
+  copy:
+    src: env/common/files/ldap.jks
+    dest: "{{ nifi_registry_config_dirs.external_config }}/ssl/ldap.jks"
+    owner: "{{ nifi_registry_user }}"
+    group: "{{ nifi_registry_group }}"

@@ -1,0 +1,34 @@
+---
+- name: Create NiFi group
+  group:
+    name: "{{ nifi_group }}"
+    state: "present"
+    system: "yes"
+
+- name: Create NiFi user
+  user:
+    name: "{{ nifi_user }}"
+    groups: "{{ nifi_group }}"
+    append: "yes"
+    state: "present"
+    create_home: "no"
+    system: "yes"
+
+- name: Create install directory
+  file:
+    path: "{{ nifi_config_dirs.install }}"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
+
+- name: Set NiFi home
+  lineinfile:
+    path: "/etc/environment"
+    line: "export NIFI_HOME={{ nifi_config_dirs.home }}"
+    create: "yes"
+
+- name: Set JAVA home
+  lineinfile:
+    path: "/etc/environment"
+    line: "export JAVA_HOME={{ java_home }}"
+    create: "yes"

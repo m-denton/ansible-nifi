@@ -1,0 +1,47 @@
+---
+- name: Prepare system
+  include: ./prepare.yml
+
+- name: Create shared resources directory
+  file:
+    path: "{{ nifi_config_dirs.external_config }}"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
+
+# - name: Unpack 1904labs NiFi files
+#   unarchive:
+#     remote_src: "no"
+#     src: env/common/files/1904labs_config_resources.tar.gz
+#     dest: "{{ nifi_config_dirs.external_config }}/"
+#     creates: "{{ nifi_config_dirs.external_config }}/hdp_conf/"
+#     owner: "{{ nifi_user }}"
+#     group: "{{ nifi_group }}"
+
+- name: Create cert directory
+  file:
+    path: "{{ nifi_config_dirs.external_config }}/ssl"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
+
+# - name: Place keystore in cert directory
+#   copy:
+#     src: "env/{{ env_name }}/files/{{ ansible_fqdn }}.jks"
+#     dest: "{{ nifi_config_dirs.external_config }}/ssl/{{ ansible_fqdn }}.jks"
+#     owner: "{{ nifi_user }}"
+#     group: "{{ nifi_group }}"
+
+# - name: Place truststore in cert directory
+#   copy:
+#     src: "env/common/files/truststore.jks"
+#     dest: "{{ nifi_config_dirs.external_config }}/ssl/truststore.jks"
+#     owner: "{{ nifi_user }}"
+#     group: "{{ nifi_group }}"
+  
+# - name: Place LDAP truststore in cert directory
+#   copy:
+#     src: env/common/files/ldap.jks
+#     dest: "{{ nifi_config_dirs.external_config }}/ssl/ldap.jks"
+#     owner: "{{ nifi_user }}"
+#     group: "{{ nifi_group }}" 

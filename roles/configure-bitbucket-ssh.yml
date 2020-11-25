@@ -1,0 +1,27 @@
+---
+- name: Create SSH directory
+  file:
+    path: "{{ bitbucket_user_home }}/.ssh"
+    state: "directory"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+    mode: 0700
+- name: Place SSH config
+  copy:
+    src: env/common/files/ssh-config
+    dest: "{{ bitbucket_user_home }}/.ssh/config"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+- name: Place BitBucket public key
+  copy:
+    src: env/common/files/svc_nifi-bitbucket-rsa.pub
+    dest: "{{ bitbucket_user_home }}/.ssh/svc_nifi-bitbucket-rsa.pub"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+- name: Place BitBucket private key
+  copy:
+    src: env/common/files/svc_nifi-bitbucket-rsa
+    dest: "{{ bitbucket_user_home }}/.ssh/svc_nifi-bitbucket-rsa"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+    mode: 0600
