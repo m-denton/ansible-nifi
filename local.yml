@@ -30,8 +30,8 @@
     java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
-    nifi_user: svc_nifi
-    nifi_group: svc_nifigrp
+    nifi_user: svc_pcmps
+    nifi_group: svc_pcmpsgrp
     nifi_config_dirs:
       install: /apps/nifi/releases
       home: /apps/nifi/releases/current
