@@ -30,12 +30,12 @@
     java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
-    nifi_user: svc_pcmps
-    nifi_group: svc_pcmpsgrp
+    nifi_user: svc_infogov
+    nifi_group: svc_infogovgrp
     nifi_config_dirs:
-      install: /apps/nifi/releases
-      home: /apps/nifi/releases/current
-      external_config: /apps/nifi/config_resources
+      install: /apps/infogov/nifi/releases
+      home: /apps/infogov/nifi/releases/current
+      external_config: /apps/infogov/nifi/config_resources
     # nifi_properties:
     #   nifi.web.http.host: ""
     #   nifi.web.http.port: ""
