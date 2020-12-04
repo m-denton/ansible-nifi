@@ -14,9 +14,16 @@
     create_home: "no"
     system: "yes"
 
-- name: Create install directory
+- name: Create install directory for Nifi
   file:
     path: "{{ nifi_config_dirs.install }}"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
+
+- name: Create install directory for Nifi Toolkit
+  file:
+    path: "{{ nifi_config_dirs.toolkit }}"
     state: "directory"
     owner: "{{ nifi_user }}"
     group: "{{ nifi_group }}"

@@ -3,43 +3,26 @@
   become: yes
   gather_facts: true
   pre_tasks:
-    - name: Create install directory
-      file:
-        path: "{{ nifi_config_dirs.toolkit }}"
-        state: "directory"
-        owner: "{{ nifi_user }}"
-        group: "{{ nifi_group }}"
-    - name: Download NiFi toolkit binary
-      get_url:
-        url: "{{ download_mirror_uri }}/nifi/{{ nifi_version }}/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
-        dest: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
-
-    - name: Unpack NiFi toolkit binary
-      unarchive:
-        remote_src: "yes"
-        src: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
-        dest: "{{ nifi_config_dirs.toolkit }}/"
-        owner: "{{ nifi_user }}"
-        group: "{{ nifi_group }}"
-        creates: "{{ nifi_config_dirs.toolkit }}/nifi-toolkit-{{ nifi_version }}"
-    # - name: "Prepare for NiFi install"
-    #   include: roles/augment-nifi.yml
-  # roles:
-  #   - role: geerlingguy.java
-  #     when: "ansible_os_family == 'RedHat'"
-  #     java_packages:
-  #       - java-1.8.0-openjdk-devel
-    # - role: cavemandaveman.nifi
-  # post_tasks:
-  #   - name: Update JAVA_HOME in /apps/nifi/current/bin/nifi-env.sh
-  #     lineinfile:
-  #       path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
-  #       regexp: '^#\s*export JAVA_HOME.*$'
-  #       line: 'export JAVA_HOME={{ java_home }}'
-  #   - name: Restart Nifi
-  #     service: 
-  #       name: nifi
-  #       state: restarted
+    - name: "Prepare for NiFi install"
+      include: roles/augment-nifi.yml
+    - name: "Install the Nifi Toolkit"
+      include: roles/install-toolkit.yml
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk-devel
+    - role: cavemandaveman.nifi
+  post_tasks:
+    - name: Update JAVA_HOME in /apps/nifi/current/bin/nifi-env.sh
+      lineinfile:
+        path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
+        regexp: '^#\s*export JAVA_HOME.*$'
+        line: 'export JAVA_HOME={{ java_home }}'
+    - name: Restart Nifi
+      service: 
+        name: nifi
+        state: restarted
       
   vars:
     java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
@@ -51,7 +34,6 @@
       install: /apps/infogov/nifi/releases
       home: /apps/infogov/nifi/releases/current
       external_config: /apps/infogov/nifi/config_resources
-      toolkit: /apps/infogov/nifi/toolkit
     # nifi_properties:
     #   nifi.web.http.host: ""
     #   nifi.web.http.port: ""
