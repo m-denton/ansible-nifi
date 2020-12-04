@@ -3,12 +3,18 @@
   become: yes
   gather_facts: true
   pre_tasks:
-    - name: Download NiFi binary
+    - name: Create install directory
+      file:
+        path: "{{ nifi_config_dirs.toolkit }}"
+        state: "directory"
+        owner: "{{ nifi_user }}"
+        group: "{{ nifi_group }}"
+    - name: Download NiFi toolkit binary
       get_url:
         url: "{{ download_mirror_uri }}/nifi/{{ nifi_version }}/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
         dest: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
 
-    - name: Unpack NiFi binary
+    - name: Unpack NiFi toolkit binary
       unarchive:
         remote_src: "yes"
         src: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
