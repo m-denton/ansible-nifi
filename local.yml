@@ -34,6 +34,7 @@
       install: /apps/infogov/nifi/releases
       home: /apps/infogov/nifi/releases/current
       external_config: /apps/infogov/nifi/config_resources
+      toolkit: /apps/infogov/nifi/toolkit
     # nifi_properties:
     #   nifi.web.http.host: ""
     #   nifi.web.http.port: ""
