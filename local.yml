@@ -5,17 +5,17 @@
   pre_tasks:
     - name: Download NiFi binary
       get_url:
-        url: "https://www.apache.org/dyn/closer.lua?path=/nifi/1.12.1/nifi-toolkit-1.12.1-bin.tar.gz"
-        dest: "/tmp/nifi-toolkit-bin.tar.gz"
+        url: "{{ download_mirror_uri }}/nifi/{{ nifi_version }}/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
+        dest: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
 
     - name: Unpack NiFi binary
       unarchive:
         remote_src: "yes"
-        src: "/tmp/nifi-toolkit-bin.tar.gz"
-        dest: "/apps/infogov/"
+        src: "/tmp/nifi-toolkit-{{ nifi_version }}-bin.tar.gz"
+        dest: "{{ nifi_config_dirs.toolkit }}/"
         owner: "{{ nifi_user }}"
         group: "{{ nifi_group }}"
-        creates: "/apps/infogov/nifi-toolkit-1.12.1"
+        creates: "{{ nifi_config_dirs.toolkit }}/nifi-toolkit-{{ nifi_version }}"
     # - name: "Prepare for NiFi install"
     #   include: roles/augment-nifi.yml
   # roles:
@@ -45,6 +45,7 @@
       install: /apps/infogov/nifi/releases
       home: /apps/infogov/nifi/releases/current
       external_config: /apps/infogov/nifi/config_resources
+      toolkit: /apps/infogov/nifi/toolkit
     # nifi_properties:
     #   nifi.web.http.host: ""
     #   nifi.web.http.port: ""
