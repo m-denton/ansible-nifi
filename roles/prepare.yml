@@ -28,14 +28,14 @@
     owner: "{{ nifi_user }}"
     group: "{{ nifi_group }}"
 
-- name: Set NiFi home
-  lineinfile:
-    path: "/etc/environment"
-    line: "export NIFI_HOME={{ nifi_config_dirs.home }}"
-    create: "yes"
+# - name: Set NiFi home
+#   lineinfile:
+#     path: "/etc/environment"
+#     line: "export NIFI_HOME={{ nifi_config_dirs.home }}"
+#     create: "yes"
 
-- name: Set JAVA home
-  lineinfile:
-    path: "/etc/environment"
-    line: "export JAVA_HOME={{ java_home }}"
-    create: "yes"
+# - name: Set JAVA home
+#   lineinfile:
+#     path: "/etc/environment"
+#     line: "export JAVA_HOME={{ java_home }}"
+#     create: "yes"
