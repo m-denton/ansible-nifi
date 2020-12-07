@@ -1,18 +1,18 @@
 ---
-- name: Create NiFi group
-  group:
-    name: "{{ nifi_group }}"
-    state: "present"
-    system: "yes"
+# - name: Create NiFi group
+#   group:
+#     name: "{{ nifi_group }}"
+#     state: "present"
+#     system: "yes"
 
-- name: Create NiFi user
-  user:
-    name: "{{ nifi_user }}"
-    groups: "{{ nifi_group }}"
-    append: "yes"
-    state: "present"
-    create_home: "no"
-    system: "yes"
+# - name: Create NiFi user
+#   user:
+#     name: "{{ nifi_user }}"
+#     groups: "{{ nifi_group }}"
+#     append: "yes"
+#     state: "present"
+#     create_home: "no"
+#     system: "yes"
 
 - name: Create install directory for Nifi
   file:
