@@ -27,8 +27,8 @@
     java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
-    nifi_user: svc_infogov
-    nifi_group: svc_infogovgrp
+    nifi_user: svc-infogov
+    nifi_group: svc-infogovgrp
     nifi_config_dirs:
       install: /apps/infogov/nifi/releases
       home: /apps/infogov/nifi/releases/current
