@@ -1,24 +1,24 @@
 ---
 - hosts: localhost
   gather_facts: true
-  # pre_tasks:
-  #   - name: "Prepare for NiFi install"
-  #     include: roles/prep-nifi.yml
+  pre_tasks:
+    - name: "Prepare for NiFi install"
+      include: roles/prep-nifi.yml
 
-  # tasks:
-  #   - name: "Install Java"
-  #     include: roles/install-java.yml
-  #   - name: "Install Nifi"
-  #     include: roles/install-nifi.yml
-  #   - name: "Customize Nifi"
-  #     include: roles/customize-nifi.yml
+  tasks:
+    - name: "Install Java"
+      include: roles/install-java.yml
+    - name: "Install Nifi"
+      include: roles/install-nifi.yml
+    - name: "Customize Nifi"
+      include: roles/customize-nifi.yml
 
   post_tasks:
-    # - name: Update JAVA_HOME in /apps/infogov/current/bin/nifi-env.sh
-    #   lineinfile:
-    #     path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
-    #     regexp: '^#\s*export JAVA_HOME.*$'
-    #     line: 'export JAVA_HOME={{ java.install_folder }}/{{ java.version }}/jre'
+    - name: Update JAVA_HOME in /apps/infogov/current/bin/nifi-env.sh
+      lineinfile:
+        path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
+        regexp: '^#\s*export JAVA_HOME.*$'
+        line: 'export JAVA_HOME={{ java.install_folder }}/{{ java.version }}/jre'
     - name: Restart Nifi
       command: '{{ nifi_config_dirs.home }}/bin/nifi.sh restart'
       become: yes
