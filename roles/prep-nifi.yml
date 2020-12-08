@@ -1,6 +1,10 @@
 ---
-- name: Prepare system
-  include: ./prepare.yml
+- name: Create install directory for Nifi
+  file:
+    path: "{{ nifi_config_dirs.install }}"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
 
 - name: Create shared resources directory
   file:
