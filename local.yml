@@ -6,33 +6,33 @@
       include: roles/augment-nifi.yml
     - name: "Install Java"
       include: roles/install-java.yml
-
-
   #   - name: "Install the Nifi Toolkit"
   #     include: roles/install-toolkit.yml
-  # roles:
-  #   - role: geerlingguy.java
-  #     when: "ansible_os_family == 'RedHat'"
-  #     java_packages:
-  #       - java-1.8.0-openjdk-devel
-  #   - role: cavemandaveman.nifi
-  # post_tasks:
-  #   - name: Update JAVA_HOME in /apps/nifi/current/bin/nifi-env.sh
-  #     lineinfile:
-  #       path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
-  #       regexp: '^#\s*export JAVA_HOME.*$'
-  #       line: 'export JAVA_HOME={{ java_home }}'
-  #   - name: Restart Nifi
-  #     service: 
-  #       name: nifi
-  #       state: restarted
+
+  roles:
+    # - role: geerlingguy.java
+    #   when: "ansible_os_family == 'RedHat'"
+    #   java_packages:
+    #     - java-1.8.0-openjdk-devel
+    - role: cavemandaveman.nifi
+
+  post_tasks:
+    - name: Update JAVA_HOME in /apps/infogov/current/bin/nifi-env.sh
+      lineinfile:
+        path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
+        regexp: '^#\s*export JAVA_HOME.*$'
+        line: 'export JAVA_HOME={{ java.install_folder }}/{{ java.version }}/jre'
+    - name: Restart Nifi
+      service: 
+        name: nifi
+        state: restarted
       
   vars:
     java:
       download_url: https://cdn.azul.com/zulu/bin
       version: zulu8.50.0.51-ca-jdk8.0.275-linux_x64
       install_folder: /apps/infogov
-      home: /usr/lib/jvm/java-1.8.0-openjdk/jre
+      home: /apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
     nifi_user: svc-infogov
