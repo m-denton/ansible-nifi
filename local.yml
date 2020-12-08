@@ -43,7 +43,7 @@
       home: /apps/infogov/nifi/releases/current
       external_config: /apps/infogov/nifi/config_resources
       toolkit: /apps/infogov/nifi/toolkit
-    # nifi_properties:
+    nifi_properties:
     #   nifi.web.http.host: ""
     #   nifi.web.http.port: ""
     #   nifi.web.https.host: "{{ ansible_fqdn }}"
@@ -72,7 +72,7 @@
     #   nifi.kerberos.krb5.file: "{{ nifi_config_dirs.external_config }}/hdp_conf/krb5.conf"
     bootstrap:
       java.arg.17: "-Dorg.xerial.snappy.tempdir={{ nifi_config_dirs.external_config }}"
-    # logback:
+    logback:
     #   /configuration/appender[@name="APP_FILE"]/rollingPolicy/maxFileSize: 10MB
     #   /configuration/appender[@name="APP_FILE"]/rollingPolicy/maxHistory: 5
     #   /configuration/logger[@name="org.apache.nifi.cluster.coordination.heartbeat" and @level="WARN"]: ""
@@ -80,7 +80,7 @@
     #   /configuration/logger[@name="org.apache.nifi.controller.cluster" and @level="WARN"]: ""
     #   /configuration/logger[@name="org.apache.nifi.controller.repository.WriteAheadFlowFileRepository" and @level="WARN"]: ""
     #   /configuration/logger[@name="org.wali.MinimalLockingWriteAheadLog" and @level="WARN"]: ""
-    # login_identity_providers:
+    login_identity_providers:
     #   /loginIdentityProviders/provider/identifier: ldap-provider
     #   /loginIdentityProviders/provider/property[@name="Authentication Strategy"]: LDAPS
     #   /loginIdentityProviders/provider/property[@name="Manager DN"]: CN=svc-apache-nifi,OU=Service,OU=Secured Accounts,OU=SPECTRUM,DC=CORP,DC=CHARTERCOM,DC=com
@@ -93,5 +93,5 @@
     #   /loginIdentityProviders/provider/property[@name="User Search Base"]: OU=Corp Ops Engin _ Tech,OU=Corporate,OU=Accounts,OU=SPECTRUM,DC=CORP,DC=CHARTERCOM,DC=com
     #   /loginIdentityProviders/provider/property[@name="User Search Filter"]: sAMAccountName={0}
     #   /loginIdentityProviders/provider/property[@name="Identity Strategy"]: USE_USERNAME
-    # state_management:
+    state_management:
     #   /stateManagement/cluster-provider/property[@name="Connect String"]: "{{ nifi_properties['nifi.zookeeper.connect.string'] }}"
