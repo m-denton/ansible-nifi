@@ -71,7 +71,7 @@
     #   nifi.zookeeper.connect.string: "{{ groups['nifi_servers'][0] }}:2181,{{ groups['nifi_servers'][1] }}:2181,{{ groups['nifi_servers'][2] }}:2181"
     #   nifi.kerberos.krb5.file: "{{ nifi_config_dirs.external_config }}/hdp_conf/krb5.conf"
     bootstrap:
-      java.arg.17: "-Dorg.xerial.snappy.tempdir={{ nifi_config_dirs.external_config }}"
+      java.arg.17: "-Dorg.xerial.snappy.tempdir=/apps/infogov/nifi/releases/nifi-1.12.1/lib/"
     logback:
     #   /configuration/appender[@name="APP_FILE"]/rollingPolicy/maxFileSize: 10MB
     #   /configuration/appender[@name="APP_FILE"]/rollingPolicy/maxHistory: 5
