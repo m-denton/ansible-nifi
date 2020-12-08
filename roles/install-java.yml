@@ -1,6 +1,6 @@
 ---
 - name: Download Java
-  command: "wget -q -O {{java.java_archive}} --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' {{java.download_url}}"
+  command: "wget -q --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' {{java.download_url}}"
 
 # - name: Unpack archive
 #   command: "tar -zxf {{java.java_archive}} -C {{java.download_folder}} creates={{java.java_name}}"
