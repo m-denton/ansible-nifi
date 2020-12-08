@@ -20,8 +20,9 @@
     group: "{{ nifi_group }}"
     recurse: "yes"
 
-- name: Make Java available for system
-  command: 'alternatives --install "/usr/bin/java" "java" "{{ java.install_folder }}/{{ java.version }}/bin/java" 2000'
+#TODO
+# - name: Make Java available for system
+#   command: 'alternatives --install "/usr/bin/java" "java" "{{ java.install_folder }}/{{ java.version }}/bin/java" 2000'
 
 - name: Clean up
   file: state=absent path="/tmp/{{ java.version }}.tar.gz"
