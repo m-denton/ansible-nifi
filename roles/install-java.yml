@@ -1,6 +1,6 @@
 ---
 - name: Download Java
-  command: "wget -q --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' 'https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz'"
+  command: "wget -q -O '/opt/jdk.tar.gz' --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' 'https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz'"
 
 # - name: Unpack archive
 #   command: "tar -zxf {{java.java_archive}} -C {{java.download_folder}} creates={{java.java_name}}"
