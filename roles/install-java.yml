@@ -1,21 +1,21 @@
 ---
 - name: Download Java binary
   get_url:
-    url: "https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz"
-    dest: "/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz"
+    url: "{{ java.download_url}}/{{ java.version }}.tar.gz"
+    dest: "/tmp/{{ java.version }}.tar.gz"
 
 - name: Unpack Java binary
   unarchive:
     remote_src: "yes"
-    src: "/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz"
-    dest: "/apps/infogov/"
+    src: "/tmp/{{ java.version }}.tar.gz"
+    dest: "{{ java.install_folder}}"
     owner: "{{ nifi_user }}"
     group: "{{ nifi_group }}"
-    creates: "/apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64"
+    creates: "{{ java.install_folder }}/{{ java.version }}"
 
 - name: Fix permissions
   file:
-    path: "/apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64"
+    path: "{{ java.install_folder }}/{{ java.version }}"
     owner: "{{ nifi_user }}"
     group: "{{ nifi_group }}"
     recurse: "yes"

@@ -2,8 +2,8 @@
 - hosts: localhost
   gather_facts: true
   pre_tasks:
-    # - name: "Prepare for NiFi install"
-    #   include: roles/augment-nifi.yml
+    - name: "Prepare for NiFi install"
+      include: roles/augment-nifi.yml
     - name: "Install Java"
       include: roles/install-java.yml
 
@@ -29,11 +29,10 @@
       
   vars:
     java:
-      download_url: https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz
-      download_folder: /opt #/apps/infogov
-      java_name: "{{ java.download_folder }}/jdk1.8.0_275"
-      java_archive: "{{ java.download_folder }}/jdk-8u275b01-linux-x64.tar.gz"
-      java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
+      download_url: https://cdn.azul.com/zulu/bin
+      version: zulu8.50.0.51-ca-jdk8.0.275-linux_x64
+      install_folder: /apps/infogov
+      home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
     nifi_user: svc-infogov
