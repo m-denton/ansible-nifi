@@ -3,10 +3,10 @@
   command: "wget -q -O '/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz' --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' 'https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz' creates='/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64'"
 
 - name: Unpack archive
-  command: "tar -xzvf '/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz' -C /apps/infogov creates='zulu8.50.0.51-ca-jdk8.0.275-linux_x64'"
+  command: "tar -xzvf '/tmp/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz' -C /apps/infogov creates='/apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64'"
 
-# - name: Fix ownership
-#   file: state=directory path={{java.java_name}} owner=root group=root recurse=yes
+- name: Fix ownership
+  file: state=directory path='/apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64' owner=svc-infogov group=svc-infogovgrp recurse=yes
 
 # - name: Make Java available for system
 #   command: 'alternatives --install "/usr/bin/java" "java" "{{java.java_name}}/bin/java" 2000'
