@@ -2,11 +2,12 @@
 - hosts: localhost
   gather_facts: true
   pre_tasks:
+    # - name: "Prepare for NiFi install"
+    #   include: roles/augment-nifi.yml
     - name: "Install Java"
       include: roles/install-java.yml
 
-    # - name: "Prepare for NiFi install"
-    #   include: roles/augment-nifi.yml
+
   #   - name: "Install the Nifi Toolkit"
   #     include: roles/install-toolkit.yml
   # roles:
