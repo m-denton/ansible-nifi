@@ -1,31 +1,38 @@
 ---
 - hosts: localhost
-  become: yes
   gather_facts: true
   pre_tasks:
-    - name: "Prepare for NiFi install"
-      include: roles/augment-nifi.yml
-    - name: "Install the Nifi Toolkit"
-      include: roles/install-toolkit.yml
-  roles:
-    - role: geerlingguy.java
-      when: "ansible_os_family == 'RedHat'"
-      java_packages:
-        - java-1.8.0-openjdk-devel
-    - role: cavemandaveman.nifi
-  post_tasks:
-    - name: Update JAVA_HOME in /apps/nifi/current/bin/nifi-env.sh
-      lineinfile:
-        path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
-        regexp: '^#\s*export JAVA_HOME.*$'
-        line: 'export JAVA_HOME={{ java_home }}'
-    - name: Restart Nifi
-      service: 
-        name: nifi
-        state: restarted
+    - name: "Install Java"
+      include: roles/install-java.yml
+
+    # - name: "Prepare for NiFi install"
+    #   include: roles/augment-nifi.yml
+  #   - name: "Install the Nifi Toolkit"
+  #     include: roles/install-toolkit.yml
+  # roles:
+  #   - role: geerlingguy.java
+  #     when: "ansible_os_family == 'RedHat'"
+  #     java_packages:
+  #       - java-1.8.0-openjdk-devel
+  #   - role: cavemandaveman.nifi
+  # post_tasks:
+  #   - name: Update JAVA_HOME in /apps/nifi/current/bin/nifi-env.sh
+  #     lineinfile:
+  #       path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
+  #       regexp: '^#\s*export JAVA_HOME.*$'
+  #       line: 'export JAVA_HOME={{ java_home }}'
+  #   - name: Restart Nifi
+  #     service: 
+  #       name: nifi
+  #       state: restarted
       
   vars:
-    java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
+    java:
+      download_url: http://download.oracle.com/otn/java/jdk/8u271-b09/61ae65e088624f5aaa0b1d2d801acb16/jdk-8u271-linux-x64.tar.gz
+      download_folder: /tmp #/apps/infogov
+      java_name: "{{download_folder}}/jdk1.8.0_271"
+      java_archive: "{{download_folder}}/jdk-8u271-linux-x64.tar.gz"
+      java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
     nifi_user: svc-infogov
