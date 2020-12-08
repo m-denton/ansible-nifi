@@ -28,10 +28,10 @@
       
   vars:
     java:
-      download_url: http://download.oracle.com/otn/java/jdk/8u271-b09/61ae65e088624f5aaa0b1d2d801acb16/jdk-8u271-linux-x64.tar.gz
+      download_url: https://cdn.azul.com/zulu/bin/zulu8.50.0.51-ca-jdk8.0.275-linux_x64.tar.gz
       download_folder: /tmp #/apps/infogov
-      java_name: "{{download_folder}}/jdk1.8.0_271"
-      java_archive: "{{download_folder}}/jdk-8u271-linux-x64.tar.gz"
+      java_name: "{{download_folder}}/jdk1.8.0_275"
+      java_archive: "{{download_folder}}/jdk-8u275b01-linux-x64.tar.gz"
       java_home: /usr/lib/jvm/java-1.8.0-openjdk/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
