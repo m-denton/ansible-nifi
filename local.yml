@@ -8,12 +8,20 @@
   tasks:
     - name: "Install Java"
       include: roles/install-java.yml
+    - name: "Install Nifi toolkit"
+      include: roles/install-toolkit.yml
     - name: "Install Nifi"
       include: roles/install-nifi.yml
     - name: "Customize Nifi"
       include: roles/customize-nifi.yml
 
   post_tasks:
+    - name: Place authorizers.xml
+      copy:
+        src: "files/authorizers.xml"
+        dest: "{{ nifi_config_dirs.home }}/conf/authorizers.xml"
+        owner: "{{ nifi_user }}"
+        group: "{{ nifi_group }}"
     - name: Update JAVA_HOME in /apps/infogov/current/bin/nifi-env.sh
       lineinfile:
         path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
@@ -22,11 +30,7 @@
     - name: Restart Nifi
       command: '{{ nifi_config_dirs.home }}/bin/nifi.sh restart'
       become: yes
-      become_user: svc-infogov
-    # - name: Restart Nifi
-    #   service: 
-    #     name: nifi
-    #     state: restarted
+      become_user: "{{ nifi_user }}"
       
   vars:
     java:
@@ -36,8 +40,8 @@
       home: /apps/infogov/zulu8.50.0.51-ca-jdk8.0.275-linux_x64/jre
     nifi_version: 1.12.1
     download_mirror_uri: http://apache.cs.utah.edu
-    nifi_user: svc-infogov
-    nifi_group: svc-infogovgrp
+    nifi_user: ec2-user
+    nifi_group: ec2-user
     nifi_config_dirs:
       install: /apps/infogov/nifi/releases
       home: /apps/infogov/nifi/releases/current

@@ -16,10 +16,14 @@ if ! command -v ansible >/dev/null; then
     echo "Installing Ansible and dependencies."
     if command -v yum >/dev/null; then
         # Add EPEL repository
-        sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-        sudo yum install -y ansible
-        sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
-        sudo yum install -y git
+        rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        yum install -y ansible
+        yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+        yum install -y git
+
+        mkdir /apps/infogov/.ssh
+        mkdir /apps/infogov/tmp
+
     elif command -v apt-get >/dev/null; then
         sudo apt-get update -qq
         sudo apt-get install -y -qq software-properties-common
@@ -30,5 +34,4 @@ if ! command -v ansible >/dev/null; then
         echo "neither yum nor apt-get found!"
         exit 1
     fi
-    #install requirements.yml
 fi
