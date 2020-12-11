@@ -16,12 +16,12 @@
       include: roles/customize-nifi.yml
 
   post_tasks:
-    - name: Place authorizers.xml
-      copy:
-        src: "files/authorizers.xml"
-        dest: "{{ nifi_config_dirs.home }}/conf/authorizers.xml"
-        owner: "{{ nifi_user }}"
-        group: "{{ nifi_group }}"
+    # - name: Place authorizers.xml
+    #   copy:
+    #     src: "files/authorizers.xml"
+    #     dest: "{{ nifi_config_dirs.home }}/conf/authorizers.xml"
+    #     owner: "{{ nifi_user }}"
+    #     group: "{{ nifi_group }}"
     # - name: Make local certs
     #   command: '{{ nifi_config_dirs.toolkit }}/bin/tls-toolkit.sh standalone -n "localhost" -C "CN=sys_admin, OU=NIFI" -o {{ nifi_config_dirs.toolkit }}/target'
     #   become: yes
