@@ -6,6 +6,13 @@
     owner: "{{ nifi_user }}"
     group: "{{ nifi_group }}"
 
+- name: Create install directory for Nifi Toolkit
+  file:
+    path: "{{ nifi_config_dirs.toolkit }}"
+    state: "directory"
+    owner: "{{ nifi_user }}"
+    group: "{{ nifi_group }}"
+
 - name: Create shared resources directory
   file:
     path: "{{ nifi_config_dirs.external_config }}"
