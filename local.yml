@@ -22,6 +22,22 @@
         dest: "{{ nifi_config_dirs.home }}/conf/authorizers.xml"
         owner: "{{ nifi_user }}"
         group: "{{ nifi_group }}"
+    - name: Make local certs
+      command: '{{ nifi_config_dirs.toolkit }}/bin/tls-toolkit.sh standalone -n "localhost" -C "CN=sys_admin, OU=NIFI" -o {{ nifi_config_dirs.toolkit }}/target'
+      become: yes
+      become_user: "{{ nifi_user }}"
+    - name: Place keystore
+      copy:
+        src: "{{ nifi_config_dirs.toolkit }}/target/keystore.jks"
+        dest: "{{ nifi_config_dirs.home }}/conf/keystore.jks"
+        owner: "{{ nifi_user }}"
+        group: "{{ nifi_group }}"
+    - name: Place truststore
+      copy:
+        src: "{{ nifi_config_dirs.toolkit }}/target/truststore.jks"
+        dest: "{{ nifi_config_dirs.home }}/conf/truststore.jks"
+        owner: "{{ nifi_user }}"
+        group: "{{ nifi_group }}"
     - name: Update JAVA_HOME in /apps/infogov/current/bin/nifi-env.sh
       lineinfile:
         path: "{{ nifi_config_dirs.home }}/bin/nifi-env.sh"
